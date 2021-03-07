@@ -15,3 +15,15 @@
 PyTorch implementation for paper "SSCNav: Confidence-Aware Semantic Scene Completion for Visual Semantic Navigation".
 
 ![teaser](https://sscnav.cs.columbia.edu/images/teaser.gif)
+
+## Content
+
+- [Prerequisites](#prerequisites)
+- [Data Preparation](#data-preparation)
+- [Pretrained Models](#pretrained-models)
+- [Training](#training)
+
+## Prerequisites
+## Data Preparation
+## Pretrained Models
+## Training
