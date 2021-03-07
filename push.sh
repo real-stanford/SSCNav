@@ -1,6 +1,7 @@
 #!/bin/bash
 name=$1
 cur=$PWD
+
 {
   cd /local/crv/yiqing/SSCNav;
 }
