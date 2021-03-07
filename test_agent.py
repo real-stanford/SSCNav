@@ -40,8 +40,6 @@ def main():
     args.config_paths = './configs/agent_test.yaml'
 
     args.save_dir = '/local/crv/yiqing/result/exps/'
-    args.count = 150
-
 
 
     save_dir = os.path.join(args.save_dir, args.title)
@@ -50,9 +48,8 @@ def main():
     os.makedirs(save_dir)
 
     configs = None
-    args.load_json = '/local/crv/yiqing/SCNav/data/vis.json'
-    if new_eval:
-        args.load_json = '/local/crv/yiqing/SCNav/val.json'
+
+    args.load_json = './data/val.json'
 
     if args.load_json != "":
         with open(args.load_json, 'r') as f:
@@ -136,7 +133,7 @@ def main():
 
 
 
-    max_test_epoch = len(targets) * args.count if not new_eval else len(list(configs.keys()))
+    max_test_epoch = len(list(configs.keys()))
     print("start to evaluate on %s episodes..." % max_test_epoch)
     pbar = tqdm(total=max_test_epoch)
     path_records = {}
