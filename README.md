@@ -33,11 +33,11 @@ PyTorch implementation for paper "SSCNav: Confidence-Aware Semantic Scene Comple
 
 ## BibTeX
 ```
-@inproceedings{xu2020learning,
-    title={Learning 3D Dynamic Scene Representations for Robot Manipulation},
-    author={Xu, Zhenjia and He, Zhanpeng and Wu, Jiajun and Song, Shuran},
-    booktitle={Conference on Robotic Learning (CoRL)},
-    year={2020}
+@inproceedings{liang2021sscnav,
+    title={SSCNav: Confidence-Aware Semantic Scene Completion for Visual Semantic Navigation},
+    author={Liang, Yiqing and Chen, Boyuan and Song, Shuran},
+    booktitle = {Proc. of The International Conference in Robotics and Automation (ICRA)},
+    year={2021}
 }
 ```
 
