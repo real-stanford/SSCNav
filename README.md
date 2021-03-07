@@ -24,6 +24,9 @@ PyTorch implementation for paper "SSCNav: Confidence-Aware Semantic Scene Comple
 - [Training](#training)
 
 ## Prerequisites
+
 ## Data Preparation
+
 ## Pretrained Models
+
 ## Training
