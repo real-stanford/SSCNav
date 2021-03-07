@@ -12,6 +12,6 @@
 ### [Project Page](https://sscnav.cs.columbia.edu/) | [Video](https://youtu.be/tfBbdGS72zg) | [arXiv](https://arxiv.org/pdf/2012.04512)
 
 ## Overview
-This repo contains the PyTorch implementation for paper "SSCNav: Confidence-Aware Semantic Scene Completion for Visual Semantic Navigation".
+PyTorch implementation for paper "SSCNav: Confidence-Aware Semantic Scene Completion for Visual Semantic Navigation".
 
 ![teaser](https://sscnav.cs.columbia.edu/images/teaser.gif)
