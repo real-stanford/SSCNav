@@ -75,7 +75,7 @@ parser.add_argument("--train_thin", type=int, default=6)
 parser.add_argument("--loss_thin", type=int, default=5)
 parser.add_argument("--train_vis", type=int, default=1000) 
 parser.add_argument("--scene_types", type=str, default="bathroom|bedroom|dining room|kitchen|living room|laundryroom/mudroom|familyroom/lounge")
-parser.add_argument("--max_dist", type=float, default=25.)
+#parser.add_argument("--max_dist", type=float, default=25.)
 parser.add_argument("--double_dqn", type=bool, default=True)
 parser.add_argument("--TAU", type=float, default=0.001)
 parser.add_argument("--soft_update", type=bool, default=False)
@@ -85,6 +85,14 @@ parser.add_argument("--load_json", type=str, default="")
 parser.add_argument("--checkpoint", type=str, default="")
 parser.add_argument("--shortest", type=bool, default=False)
 parser.add_argument("--tsplit", type=int, default=-1)
+parser.add_argument("--new_eval", type=bool, default=True)
+parser.add_argument("--fake_conf", type=bool, default=False)
+parser.add_argument("--discrete", type=bool, default=False)
+parser.add_argument("--att", type=bool, default=False)
+parser.add_argument("--rc", type=bool, default=False)
+parser.add_argument("--unconf", type=bool, default=False)
+parser.add_argument("--full_map", type=bool, default=False)
+
 
 def adjust_learning_rate(optimizer, timestep, learning_rate, learning_rate_decay_steps):
     lr = learning_rate
@@ -97,643 +105,17 @@ def adjust_learning_rate(optimizer, timestep, learning_rate, learning_rate_decay
 
 def main():
     args = parser.parse_args()
-    assert args.title in ['debug', 'random', 'single', 's', 's_c', 's_cf', 's_cu', 'ps', 'ps_cu',
-            'ss', 'ss_c', 'ss_cu', 'ss_new', 'ss_c_new', 'ss_cu_new',
-            's_new', 's_c_new', 's_cu_new', 'ss_1', 'ss_c_1', 'ss_cu_1', 's_1',
-            's_c_1', 's_cu_1', 's_cu_2', 's_cu_3', 's_2', 's_3', 's_c_3',
-            's_c_4', 's_cu_3', 's_chal', 's_c_chal', "s_cu_chal",
-            's_shortest', 's_c_shortest', 's_cu_shortest', 'fake_conf',
-            'discrete', 's_cu_chal_2', 'discrete_2', 's_cu_chal_3',
-            's_cu_chal_att', 's_cu_chal_4', 's_cu_chal_5', 's_cu_chal_6', 'fake_conf_2',
-            's_chal_final', 's_cu_chal_final', 'sscnav', 'sscnav_cf',
-            'sscnav_c', 'sscnav_path', 'redo_cu'], "Illegal exp id"
-    new_eval=False
-    fake_conf=False
-    discrete=False
-    att = False
-    rc = False
-    unconf = False
-    full_map = False
-    if args.title ==  'debug':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_4/14_fd.pth'
-        args.pano = False
-        new_eval = True
-        full_map = True
-        args.shortest = True 
-        args.seg_pretrained = "/local/crv/yiqing/result/train_seg/10.pth"
 
-        args.config_paths = './configs/agent_test.yaml'
-
-    if args.title == 'random':
-        args.Q_pretrained = ''
-        args.user_semantics = False
-        args.cmplt = False
-        args.conf = False
-        args.pano = False
-    elif args.title == 'single':
-        args.Q_pretrained = ''
-        args.user_semantics = False
-        args.cmplt = False
-        args.conf = False
-        args.pano = False
-    elif args.title == 's':
-        args.Q_pretrained = ''
-        args.user_semantics = False
-        args.cmplt = False
-        args.conf = False
-        args.pano = False
-    elif args.title == 's_c':
-        args.Q_pretrained = ''
-        args.user_semantics = False
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = False
-        args.pano = False
-    elif args.title == 's_cu':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf/5_fd.pth'
-        args.pano = False
-    elif args.title == 's_1':
-        args.Q_pretrained = ''
-        args.user_semantics = False
-        args.cmplt = False
-        args.conf = False
-        args.pano = False
-    elif args.title == 's_c_1':
-        args.Q_pretrained = ''
-        args.user_semantics = False
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = False
-        args.pano = False
-    elif args.title == 's_c_3':
-        args.Q_pretrained = ''
-        args.user_semantics = False
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = False
-        args.pano = False
-    elif args.title == 's_c_chal':
-        args.Q_pretrained = ''
-        args.user_semantics = False
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = False
-        args.pano = False
-        new_eval = True
-    elif args.title == 's_cu_1':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf/5_fd.pth'
-        args.pano = False
-    elif args.title == 's_cu_2':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf/5_fd.pth'
-        args.pano = False
-    elif args.title == 's_cu_chal':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf/5_fd.pth'
-        args.pano = False
-        new_eval = True
-    elif args.title == 's_cu_chal_2':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_2/4_fd.pth'
-        args.pano = False
-        new_eval = True
-    elif args.title == 's_cu_chal_3':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_4/14_fd.pth'
-        args.pano = False
-        new_eval = True
-    elif args.title == 's_cu_chal_4':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_4/14_fd.pth'
-        args.pano = False
-        new_eval = True
-    elif args.title == 'redo_cu':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_4/14_fd.pth'
-        args.pano = False
-        new_eval = True
-    elif args.title == 'sscnav_cf':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = False
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.conf = False
-        args.pano = False
-        new_eval = True
-        full_map = True
-
-    elif args.title == 'sscnav_c':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = False
-        args.pano = False
-        new_eval = True
-        full_map = True
-
-    elif args.title == 'sscnav':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_4/14_fd.pth'
-        args.pano = False
-        new_eval = True
-        full_map = True
-        args.seg_pretrained = "/local/crv/yiqing/result/train_seg/10.pth"
-    elif args.title == 'sscnav_path':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_4/14_fd.pth'
-        args.pano = False
-        new_eval = True
-        full_map = True
-        args.shortest = True
-        args.max_step = 500
-        args.seg_pretrained = "/local/crv/yiqing/result/train_seg/10.pth"
-    elif args.title == 's_cu_chal_att':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_4/14_fd.pth'
-        args.pano = False
-        new_eval = True
-        att = True
-    elif args.title == 's_cu_chal_5':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_4/14_fd.pth'
-        args.pano = False
-        new_eval = True
-        rc = True
-    elif args.title == 's_cu_chal_6':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_5/20_fd.pth'
-        args.pano = False
-        new_eval = True
-    elif args.title == 's_cu_chal_final':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_5/20_fd.pth'
-        args.pano = False
-        new_eval = True
-        
-    elif args.title == 'fake_conf':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = False
-        args.conf_pretrained = ''
-        args.pano = False
-        new_eval = True
-        fake_conf = True
-    elif args.title == 'fake_conf_2':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = False
-        args.conf_pretrained = ''
-        args.pano = False
-        new_eval = True
-        fake_conf = True
-        unconf = True
-    elif args.title == 'discrete_2':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_2/4_fd.pth'
-        args.pano = False
-        new_eval = True
-        discrete = True
-    elif args.title == 'discrete':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.targets = "bed|toilet|table|sink|sofa|door|shower|counter"
-        args.max_dist = float("inf")
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_4/14_fd.pth'
-        args.pano = False
-        new_eval = True
-        discrete = True
-    elif args.title == 's_2':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = False
-        args.conf = False
-        args.pano = False
-    elif args.title == 's_chal':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = False
-        args.conf = False
-        args.pano = False
-        new_eval = True
-    elif args.title == 's_chal_final':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = False
-        args.conf = False
-        args.pano = False
-        new_eval = True
-    elif args.title == 's_3':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.max_dist = float("inf")
-        args.shortest = True
-        args.cmplt = False
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = False
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf/5_fd.pth'
-        args.pano = False
-    elif args.title == 's_shortest':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.max_dist = float("inf")
-        args.shortest = True
-        args.cmplt = False
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = False
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf/5_fd.pth'
-        args.pano = False
-        new_eval = True
-    elif args.title == 's_c_4':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.max_dist = float("inf")
-        args.shortest = True
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = False
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf/5_fd.pth'
-        args.pano = False
-    elif args.title == 's_c_shortest':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.max_dist = float("inf")
-        args.shortest = True
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = False
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf/5_fd.pth'
-        args.pano = False
-        new_eval = True
-        args.max_step = 500
-    elif args.title == 's_cu_3':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.max_dist = float("inf")
-        args.shortest = True
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf/5_fd.pth'
-        args.pano = False
-        args.max_step = 500
-    elif args.title == 's_cu_shortest':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.max_dist = float("inf")
-        args.shortest = True
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf/5_fd.pth'
-        args.pano = False
-        new_eval = True
-        args.max_step = 500
-
-    elif args.title == 's_new':
-        args.lr = 0.001
-        args.weight_decay = 0.00001
-        args.Q_pretrained = '/local/crv/yiqing/result/ss/1100.pth'
-        args.user_semantics = False
-        args.cmplt = False
-        args.conf = False
-        args.pano = False
-    elif args.title == 's_c_new':
-        args.lr = 0.001
-        args.weight_decay = 0.00001
-        args.Q_pretrained = '/local/crv/yiqing/result/s_c/60000.pth'
-        args.user_semantics = False
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = False
-        args.pano = False
-    elif args.title == 's_cu_new':
-        args.lr = 0.001
-        args.weight_decay = 0.00001
-        args.Q_pretrained = "/local/crv/yiqing/result/s_cu/60000.pth"
-        args.user_semantics = False
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf/5_fd.pth'
-        args.pano = False
-
-    elif args.title == 's_cf':
-        args.Q_pretrained = "/local/crv/yiqing/result/s_cu/60000.pth"
-        args.user_semantics = False
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf/5_fd.pth'
-        args.pano = False
-        args.lr = 0.001
-        args.weight_decay = 0.00001
-        args.start_eps = 0.01
-        args.preconf = True
+    new_eval = True
+    #new_eval = args.new_eval
+    fake_conf = args.fake_conf
+    discrete = args.discrete
+    att = args.att
+    rc = args.rc
+    unconf = args.unconf
+    full_map = args.full_map
 
 
-    elif args.title == 'ps':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = False
-        args.conf = False
-        args.pano = True
-    elif args.title == 'ps_cu':
-        args.Q_pretrained = ""
-        args.user_semantics = False
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf/5_fd.pth'
-        args.pano = True
-    elif args.title == 'ss':
-        args.Q_pretrained = "/local/crv/yiqing/result/s/60000.pth"
-        args.lr = 0.001
-        args.weight_decay = 0.00001
-        args.user_semantics = True
-        args.seg_pretrained = '/local/crv/yiqing/result/train_seg/10.pth'
-        args.cmplt = False
-        args.conf = False
-        args.pano = False
-    elif args.title == 'ss_c':
-        args.Q_pretrained = "/local/crv/yiqing/result/s_c/60000.pth"
-        args.lr = 0.001
-        args.weight_decay = 0.00001
-        args.user_semantics = True
-        args.seg_pretrained = '/local/crv/yiqing/result/train_seg/10.pth'
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized_seg/16_cd.pth'
-        args.conf = False
-        args.pano = False
-
-    elif args.title == 'ss_cu':
-        args.Q_pretrained = "/local/crv/yiqing/result/s_cu/60000.pth"
-        args.lr = 0.001
-        args.weight_decay = 0.00001
-        args.user_semantics = True
-        args.seg_pretrained = '/local/crv/yiqing/result/train_seg/10.pth'
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized_seg/16_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_seg/5_fd.pth'
-        args.pano = False
-    elif args.title == 'ss_new':
-        args.Q_pretrained = "/local/crv/yiqing/result/ss/1100.pth"
-        args.lr = 0.001
-        args.weight_decay = 0.00001
-        args.user_semantics = True
-        args.seg_pretrained = '/local/crv/yiqing/result/train_seg/10.pth'
-        args.cmplt = False
-        args.conf = False
-        args.pano = False
-    elif args.title == 'ss_c_new':
-        args.Q_pretrained = "/local/crv/yiqing/result/s_c/60000.pth"
-        args.lr = 0.001
-        args.weight_decay = 0.00001
-        args.user_semantics = True
-        args.seg_pretrained = '/local/crv/yiqing/result/train_seg/10.pth'
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized_seg/16_cd.pth'
-        args.conf = False
-        args.pano = False
-
-    elif args.title == 'ss_cu_new':
-        args.Q_pretrained = "/local/crv/yiqing/result/s_cu/60000.pth"
-        args.lr = 0.001
-        args.weight_decay = 0.00001
-        args.user_semantics = True
-        args.seg_pretrained = '/local/crv/yiqing/result/train_seg/10.pth'
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized_seg/16_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_seg/5_fd.pth'
-        args.pano = False
-    elif args.title == 'ss_1':
-        args.Q_pretrained = ""
-        args.lr = 0.01
-        args.weight_decay = 0.0001
-        args.user_semantics = True
-        args.seg_pretrained = '/local/crv/yiqing/result/train_seg/10.pth'
-        args.cmplt = False
-        args.conf = False
-        args.pano = False
-    elif args.title == 'ss_c_1':
-        args.Q_pretrained = ""
-        args.lr = 0.01
-        args.weight_decay = 0.0001
-        args.user_semantics = True
-        args.seg_pretrained = '/local/crv/yiqing/result/train_seg/10.pth'
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized_seg/16_cd.pth'
-        args.conf = False
-        args.pano = False
-
-    elif args.title == 'ss_cu_1':
-        args.Q_pretrained = "/local/crv/yiqing/result/s_cu/60000.pth"
-        args.lr = 0.01
-        args.weight_decay = 0.0001
-        args.user_semantics = True
-        args.seg_pretrained = '/local/crv/yiqing/result/train_seg/10.pth'
-        args.cmplt = True
-        args.cmplt_pretrained\
-        = '/local/crv/yiqing/result/train_cmplt_resized_seg/16_cd.pth'
-        args.conf = True
-        args.conf_pretrained\
-                = '/local/crv/yiqing/result/train_conf_seg/5_fd.pth'
-        args.pano = False
-
-
-    #assert args.title == 'debug', "fix action bug"
-    #args.max_step = 10
-    #args.start_replay = 40.
-    #args.config_paths = 'configs/agent_test.yaml'
-    #print(bool(str(args.soft_update)))
-    #assert False, "Category level success/spl>1/5"
-    #assert False, "Fix episode not terminating bug?"
-  #  print(bool(str(args.double_dqn)))
-  #  assert False, "Pause"
-  #  print(bool(args.cmplt))
-  #  assert False, "Pause"
-    
-   # assert not args.user_semantics, "Semantic input debug"
-   # assert not args.cmplt, "Cmplt debug"
-   # assert not args.conf, "conf debug"
     if args.checkpoint != "":
         ckp = torch.load(args.checkpoint)
 
@@ -759,13 +141,12 @@ def main():
     agent = SCNavAgent(
             preconf = args.preconf,
             device = torch.device(args.device),
-            #device = torch.device("cpu"),
             min_dist = 0.,
             config_paths = args.config_paths,
             flip = args.flip,
             save_dir = save_dir,
-            pano = bool(args.pano),
-            #pano = False,
+            #pano = bool(args.pano),
+            pano = False,
             user_semantics = bool(args.user_semantics),
             seg_pretrained = args.seg_pretrained,
             cmplt = bool(args.cmplt),
@@ -774,7 +155,6 @@ def main():
             conf_pretrained = args.conf_pretrained,
             targets = args.targets,
             aggregate = bool(args.aggregate),
-            #aggregate = True,
             memory_size = args.memory_size,
             num_channel = args.num_channel,
             success_threshold = args.success_threshold,
@@ -782,7 +162,6 @@ def main():
             ignore = args.ignore,
             training = True,
             Q_pretrained = args.Q_pretrained,
-            #Q_pretrained = '../result/1.pth',
             offset = args.offset,
             floor_threshold = args.floor_threshold,
             lr = args.lr,
@@ -790,7 +169,6 @@ def main():
             weight_decay = args.weight_decay,
             gamma = args.gamma,
             batch_size = args.batch_size,
-            #batch_size = 1,
             buffer_size = args.buffer_size,
             height = args.height,
             area_x = args.area_x,
@@ -800,14 +178,12 @@ def main():
             h_new = args.h_new,
             w_new = args.w_new,
             max_step = args.max_step,
-            #max_step = 5,
             navigable_base = args.navigable_base,
             success_reward = args.success_reward,
             step_penalty = args.step_penalty,
             approach_reward = args.approach_reward,
             collision_penalty
             = args.collision_penalty,
-            #max_dist = args.max_dist,
             max_dist = float("inf"),
             scene_types = args.scene_types,
             double_dqn = args.double_dqn,
@@ -844,18 +220,11 @@ def main():
     for k in range(global_step):
         pbar.update(1)
 
-    #targets = [10, 17, 4, 14, 9, 3, 24, 22, 25]
+
     targets = [name2id[tg] for tg in agent.targets]
     while global_step < args.max_transition:
 
-        #agent.reset()
-        #assert args.title == 'debug', "don't forget to delete this part"
-        #if args.title == 'debug':
-        #    assert False, "debugging!"
-            #  with open('test.json', 'r') as f:
-          #      config = json.load(f)['1']
-          #  agent.reset_config(config)
-        #else:
+
         agent.reset(agent.targets[ep_id % len(agent.targets)])
         assert agent.target == targets[ep_id % len(agent.targets)], "False"
         while not agent.done:

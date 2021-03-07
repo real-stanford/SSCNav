@@ -1,0 +1,28 @@
+ENVIRONMENT:
+    MAX_EPISODE_STEPS: 500
+TASK:
+    POSSIBLE_ACTIONS: ["MOVE_FORWARD", "TURN_LEFT", "TURN_RIGHT", "LOOK_DOWN", "LOOK_UP"]
+SIMULATOR:
+    ACTION_SPACE_CONFIG: "v1"
+    TURN_ANGLE: 1
+    TILT_ANGLE: 30
+    AGENT_0:
+        SENSORS: ['RGB_SENSOR', 'DEPTH_SENSOR', 'SEMANTIC_SENSOR']
+    RGB_SENSOR:
+        WIDTH: 640
+        HEIGHT: 480
+        POSITION: [0, 1.25, 0]
+    DEPTH_SENSOR:
+        WIDTH: 640
+        HEIGHT: 480
+        NORMALIZE_DEPTH: False
+        POSITION: [0, 1.25, 0]
+    SEMANTIC_SENSOR:
+        WIDTH: 640
+        HEIGHT: 480
+        POSITION: [0, 1.25, 0]
+DATASET:
+    SPLIT: train
+    DATA_PATH: /local/crv/yiqing/data/datasets/pointnav/mp3d/v1/{split}/{split}.json.gz
+    SCENES_DIR: /local/crv/yiqing/mp3d/v1/tasks/
+
