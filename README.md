@@ -8,3 +8,5 @@
 <sup>1</sup>Columbia University
 <br>
 [ICRA 2021](http://www.icra2021.org/)
+
+### [Project Page](https://sscnav.cs.columbia.edu/) | [Video](https://youtu.be/tfBbdGS72zg) | [arXiv](https://arxiv.org/pdf/2012.04512)
