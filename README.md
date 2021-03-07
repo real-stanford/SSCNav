@@ -7,4 +7,4 @@
 <br>
 <sup>1</sup>Columbia University
 <br>
-[ICRA 2021](https://sscnav.cs.columbia.edu/)
+[ICRA 2021](http://www.icra2021.org/)
