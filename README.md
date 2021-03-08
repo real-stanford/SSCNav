@@ -88,7 +88,47 @@ The command to train the provided model for ACNet semantic segmentation output:
 CUDA_VISIBLE_DEVICES=? python train_conf.py train_conf_seg_6
 ```
 ### Navigation
+```
+usage: train_agent.py [-h] --title TITLE [--seed SEED] [--device DEVICE]
+                      [--config_paths CONFIG_PATHS] [--flip FLIP]
+                      [--seg_threshold SEG_THRESHOLD] [--pano PANO]
+                      [--user_semantics USER_SEMANTICS]
+                      [--seg_pretrained SEG_PRETRAINED] [--cmplt CMPLT]
+                      [--cmplt_pretrained CMPLT_PRETRAINED] [--conf CONF]
+                      [--conf_pretrained CONF_PRETRAINED] [--targets TARGETS]
+                      [--aggregate AGGREGATE] [--memory_size MEMORY_SIZE]
+                      [--num_channel NUM_CHANNEL]
+                      [--success_threshold SUCCESS_THRESHOLD]
+                      [--collision_threshold COLLISION_THRESHOLD]
+                      [--ignore IGNORE] [--Q_pretrained Q_PRETRAINED]
+                      [--offset OFFSET] [--floor_threshold FLOOR_THRESHOLD]
+                      [--lr LR] [--momentum MOMENTUM]
+                      [--weight_decay WEIGHT_DECAY] [--gamma GAMMA]
+                      [--batch_size BATCH_SIZE] [--buffer_size BUFFER_SIZE]
+                      [--height HEIGHT] [--area_x AREA_X] [--area_z AREA_Z]
+                      [--h H] [--w W] [--h_new H_NEW] [--w_new W_NEW]
+                      [--max_step MAX_STEP] [--navigable_base NAVIGABLE_BASE]
+                      [--max_transition MAX_TRANSITION]
+                      [--start_replay START_REPLAY]
+                      [--update_target UPDATE_TARGET] [--start_eps START_EPS]
+                      [--end_eps END_EPS] [--fix_transition FIX_TRANSITION]
+                      [--success_reward SUCCESS_REWARD]
+                      [--step_penalty STEP_PENALTY]
+                      [--approach_reward APPROACH_REWARD]
+                      [--collision_penalty COLLISION_PENALTY]
+                      [--save_dir SAVE_DIR] [--save_interval SAVE_INTERVAL]
+                      [--log_dir LOG_DIR] [--train_thin TRAIN_THIN]
+                      [--loss_thin LOSS_THIN] [--train_vis TRAIN_VIS]
+                      [--scene_types SCENE_TYPES] [--double_dqn DOUBLE_DQN]
+                      [--TAU TAU] [--soft_update SOFT_UPDATE] [--count COUNT]
+                      [--preconf PRECONF] [--load_json LOAD_JSON]
+                      [--checkpoint CHECKPOINT] [--shortest SHORTEST]
+                      [--tsplit TSPLIT] [--new_eval NEW_EVAL]
+                      [--fake_conf FAKE_CONF] [--discrete DISCRETE]
+                      [--att ATT] [--rc RC] [--unconf UNCONF]
+                      [--full_map FULL_MAP]
 
+```
 #### Training a Navigation Model
 ```
 CUDA_VISIBLE_DEVICES=? python train_agent.py --user_semantics False --cmplt True 
