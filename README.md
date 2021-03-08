@@ -91,6 +91,7 @@ CUDA_VISIBLE_DEVICES=? python train_conf.py train_conf_seg_6
 
 Navigation Experiments are controlled by argparse.
 
+Here are some fields that matter most (feel free to check the rest in the code though!):
 * **title:** experiment title, determines where to save the model & visualization & log.
 * **config_paths:** configuration file for Habitat, ./configs/agent_train.yaml for training and ./configs/agent_test.yaml for testing.
 * **user_semantics:** True -> use ACNet segmentation, groundtruth otherwise.
