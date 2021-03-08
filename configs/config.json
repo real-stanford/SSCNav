@@ -399,7 +399,8 @@
     "cd_path": "/local/crv/yiqing/result/train_cmplt_resized/17_cd.pth",
     "ce": false,
     "mask": true,
-    "oh": false
+    "oh": false,
+    "ratio": 1.0
   },
   "train_conf_3":{
     "seed": 0,
