@@ -89,14 +89,14 @@ args = parser.parse_args()
 conf_id = args.conf_id
 
 # start to log this process
-log_dir = os.path.join('../run', conf_id)
+log_dir = os.path.join('./run', conf_id)
 if os.path.exists(log_dir):
     shutil.rmtree(log_dir)
 os.makedirs(log_dir)
 writer = SummaryWriter(log_dir=log_dir)
 
 # save path for this process
-save_dir = os.path.join('../result', conf_id)
+save_dir = os.path.join('./result', conf_id)
 if os.path.exists(save_dir):
     shutil.rmtree(save_dir)
 os.makedirs(save_dir)
