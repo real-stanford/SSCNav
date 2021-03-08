@@ -58,6 +58,14 @@ Model | Description
 
 ## Usage
 
+### Training a Semantic Scene Completion Model
+
+### Training a Confidence Model
+
+### Training a Navigation Model
+
+### Evaluating a Navigation Model
+
 ## BibTeX
 ```
 @inproceedings{liang2021sscnav,
