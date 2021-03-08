@@ -61,6 +61,11 @@ Model | Description
 ### Semantic Scene Completion
 
 The experiment settings are controlled by file ```configs/config.json```.
+**Note:** data are provided in the form of list.
+```
+"root_dirs": ["../resized_buffer/data_gen_1", "../resized_buffer/data_gen_2", "../resized_buffer/data_gen_3"]    
+"test_dirs": ["../resized_buffer/test_data_gen_1", "../resized_buffer/test_data_gen_2", "../resized_buffer/test_data_gen_3"]
+```
 
 #### Training a Semantic Scene Completion Model
 The command to train the provided model for groundtruth semantic segmentation:
