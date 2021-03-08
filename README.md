@@ -69,7 +69,7 @@ For example:
 "test_dirs": ["../resized_buffer/test_data_gen_1", "../resized_buffer/test_data_gen_2", "../resized_buffer/test_data_gen_3"]
 ```
 
-#### Training a Semantic Scene Completion Model
+#### Training & Evaluating a Semantic Scene Completion Model
 The command to train the provided model for groundtruth semantic segmentation:
 ```
 CUDA_VISIBLE_DEVICES=? python train_cmplt.py --cmplt_id train_cmplt_resized
@@ -78,7 +78,7 @@ The command to train the provided model for ACNet semantic segmentation output:
 ```
 CUDA_VISIBLE_DEVICES=? python train_cmplt.py --cmplt_id train_cmplt_resized_seg
 ```
-#### Training a Confidence Model
+#### Training & Evaluating a Confidence Model
 The command to train the provided model for groundtruth semantic segmentation:
 ```
 CUDA_VISIBLE_DEVICES=? python train_conf.py --conf_id train_conf_4
