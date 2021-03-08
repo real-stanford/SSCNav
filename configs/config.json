@@ -89,7 +89,7 @@
     "ce": false,
     "mask": true,
     "oh": false,
-    "ratio": 1.0,
+    "ratio": 1.0
   },
   "train_conf_seg_5":{
     "seed": 0,
