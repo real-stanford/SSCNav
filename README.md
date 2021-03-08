@@ -33,6 +33,7 @@ Recommend working on conda environment, Python 3.7+
 6. ```conda install --yes --file requirements.txt --channel default --channel menpo --channel conda-forge```
 
 ## Data Preparation
+For training and testing Semantic Scene Completion Model and Confidence Model, download [data](https://sscnav.cs.columbia.edu/download/SceneCompletionData.zip)(634M):
 ```
 SceneCompletionData.zip
     |-- data_gen_1 \
