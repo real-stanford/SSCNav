@@ -88,7 +88,8 @@
     "cd_path": "/local/crv/yiqing/result/train_cmplt_resized_seg/16_cd.pth",
     "ce": false,
     "mask": true,
-    "oh": false
+    "oh": false,
+    "ratio": 1.0,
   },
   "train_conf_seg_5":{
     "seed": 0,
