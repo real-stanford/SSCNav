@@ -41,6 +41,8 @@ SceneCompletionData.zip
 - test_data_gen_1 \
 - test_data_gen_2 - testing data for groundtruth semantic segmentation
 - test_data_gen_3 /
+- train - training data for ACNet semantic segmentation output
+- test - testing data for ACNet semantic segmentation output
 
 
 ```
