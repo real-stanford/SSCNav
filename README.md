@@ -91,8 +91,9 @@ CUDA_VISIBLE_DEVICES=? python train_conf.py train_conf_seg_6
 
 #### Training a Navigation Model
 ```
-usage: CUDA_VISIBLE_DEVICES=? python train_agent.py --user_semantics False --cmplt True --cmplt_pretrained /local/crv/yiqing/result/train_cmplt_resized/17_cd.pth
-                --conf True --conf_pretrained /local/crv/yiqing/result/train_conf_4/14_fd.pth
+CUDA_VISIBLE_DEVICES=? python train_agent.py --user_semantics False --cmplt True 
+    --cmplt_pretrained /local/crv/yiqing/result/train_cmplt_resized/17_cd.pth
+    --conf True --conf_pretrained /local/crv/yiqing/result/train_conf_4/14_fd.pth
                 
 ```
 #### Evaluating a Navigation Model
