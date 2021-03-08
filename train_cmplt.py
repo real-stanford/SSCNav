@@ -123,6 +123,7 @@ cmplt_id = args.cmplt_id
 # start to log this process
 log_dir = os.path.join('./run', cmplt_id)
 if os.path.exists(log_dir):
+    assert False, "Dir exists!"
     shutil.rmtree(log_dir)
 os.makedirs(log_dir)
 writer = SummaryWriter(log_dir=log_dir)
@@ -130,6 +131,7 @@ writer = SummaryWriter(log_dir=log_dir)
 # save path for this process
 save_dir = os.path.join('./result', cmplt_id)
 if os.path.exists(save_dir):
+    assert False, "Dir exists!"
     shutil.rmtree(save_dir)
 os.makedirs(save_dir)
 
