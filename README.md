@@ -60,7 +60,7 @@ Model | Description
 
 ### Semantic Scene Completion
 
-The experiment settings are controlled by file ```configs/config.json```. Check the JSON file for details.
+The experiment settings are controlled by file ```configs/config.json```. Each experiment is assigned a unique key in the file. Check the JSON file for details.
 
 **Note:** data are provided in the form of list.
 For example:
