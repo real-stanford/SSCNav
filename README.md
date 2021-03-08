@@ -24,7 +24,9 @@ PyTorch implementation for paper "SSCNav: Confidence-Aware Semantic Scene Comple
 - [Training](#training)
 
 ## Prerequisites
-
+1. Download Matterport3d dataset following instruction [here](https://github.com/niessner/Matterport).
+2. Install Habitat
+3. 
 ## Data Preparation
 
 ## Pretrained Models
