@@ -88,6 +88,8 @@ The command to train the provided model for ACNet semantic segmentation output:
 CUDA_VISIBLE_DEVICES=? python train_conf.py train_conf_seg_6
 ```
 ### Navigation
+
+Navigation Experiments are controlled by argparse:
 ```
 usage: train_agent.py [-h] --title TITLE [--seed SEED] [--device DEVICE]
                       [--config_paths CONFIG_PATHS] [--flip FLIP]
