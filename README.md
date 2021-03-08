@@ -58,6 +58,8 @@ Model | Description
 
 ## Usage
 
+### Semantic Scene Completion
+
 #### Training a Semantic Scene Completion Model
 The command to train the provided model for groundtruth semantic segmentation:
 ```
@@ -76,6 +78,8 @@ The command to train the provided model for ACNet semantic segmentation output:
 ```
 CUDA_VISIBLE_DEVICES=? python train_conf.py --conf_id train_conf_seg_6
 ```
+### Navigation
+
 #### Training a Navigation Model
 
 #### Evaluating a Navigation Model
