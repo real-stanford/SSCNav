@@ -21,7 +21,7 @@ PyTorch implementation for paper "SSCNav: Confidence-Aware Semantic Scene Comple
 - [Installation](#installation)
 - [Data Preparation](#data-preparation)
 - [Pretrained Models](#pretrained-models)
-- [Training](#training)
+- [Usage](#usage)
 
 ## Installation
 Recommend working on conda environment, Python 3.7+
@@ -56,7 +56,7 @@ Model | Description
 ```final_seg.pth``` | ACNet semantic segmentation model weight
 ```final_Q.pth``` | SSCNav navigation model weight
 
-## Training
+## Usage
 
 ## BibTeX
 ```
