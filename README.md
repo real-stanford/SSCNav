@@ -30,7 +30,7 @@ Recommend working on conda environment, Python 3.7+
 3. Install [PyTorch](https://pytorch.org/).
 4. Install Habitat environment following instruction [here](https://github.com/facebookresearch/habitat-lab).
 5. Clone and navigate to this repository.
-6. ```pip install -r requirements.txt```
+6. ```conda install --yes --file requirements.txt --channel default --channel menpo```
 
 ## Data Preparation
 
