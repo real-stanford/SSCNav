@@ -59,9 +59,15 @@ Model | Description
 ## Usage
 
 ### Training a Semantic Scene Completion Model
-
+The command to train the provided model for groundtruth semantic segmentation:
+```CUDA_VISIBLE_DEVICES=? python train_cmplt.py --cmplt_id train_cmplt_resized```
+The command to train the provided model for ACNet semantic segmentation output:
+```CUDA_VISIBLE_DEVICES=? python train_cmplt.py --cmplt_id train_cmplt_resized_seg```
 ### Training a Confidence Model
-
+The command to train the provided model for groundtruth semantic segmentation:
+```CUDA_VISIBLE_DEVICES=? python train_conf.py --conf_id train_conf_4```
+The command to train the provided model for ACNet semantic segmentation output:
+```CUDA_VISIBLE_DEVICES=? python train_conf.py --conf_id train_conf_seg_6```
 ### Training a Navigation Model
 
 ### Evaluating a Navigation Model
