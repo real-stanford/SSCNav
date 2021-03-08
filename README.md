@@ -33,7 +33,17 @@ Recommend working on conda environment, Python 3.7+
 6. ```conda install --yes --file requirements.txt --channel default --channel menpo --channel conda-forge```
 
 ## Data Preparation
+```
+SceneCompletionData.zip
+- data_gen_1 \
+- data_gen_2 - training data for groundtruth semantic segmentation
+- data_gen_3 /
+- test_data_gen_1 \
+- test_data_gen_2 - testing data for groundtruth semantic segmentation
+- test_data_gen_3 /
 
+
+```
 ## Pretrained Models
 
 ## Training
