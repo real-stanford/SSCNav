@@ -72,20 +72,20 @@ For example:
 #### Training & Evaluating a Semantic Scene Completion Model
 The command to train the provided model for groundtruth semantic segmentation:
 ```
-CUDA_VISIBLE_DEVICES=? python train_cmplt.py --cmplt_id train_cmplt_resized
+CUDA_VISIBLE_DEVICES=? python train_cmplt.py train_cmplt_resized
 ```
 The command to train the provided model for ACNet semantic segmentation output:
 ```
-CUDA_VISIBLE_DEVICES=? python train_cmplt.py --cmplt_id train_cmplt_resized_seg
+CUDA_VISIBLE_DEVICES=? python train_cmplt.py train_cmplt_resized_seg
 ```
 #### Training & Evaluating a Confidence Model
 The command to train the provided model for groundtruth semantic segmentation:
 ```
-CUDA_VISIBLE_DEVICES=? python train_conf.py --conf_id train_conf_4
+CUDA_VISIBLE_DEVICES=? python train_conf.py train_conf_4
 ```
 The command to train the provided model for ACNet semantic segmentation output:
 ```
-CUDA_VISIBLE_DEVICES=? python train_conf.py --conf_id train_conf_seg_6
+CUDA_VISIBLE_DEVICES=? python train_conf.py train_conf_seg_6
 ```
 ### Navigation
 
