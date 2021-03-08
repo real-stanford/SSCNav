@@ -7,3 +7,4 @@ scipy
 matplotlib
 scikit-image
 h5py
+tensorboardx
