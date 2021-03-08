@@ -67,10 +67,10 @@ parser.add_argument("--step_penalty", type=float, default=-0.01)
 parser.add_argument("--approach_reward", type=float, default=1.)
 parser.add_argument("--collision_penalty", type=float, default=-0.25)
 parser.add_argument("--save_dir", type=str,
-        default="/local/crv/yiqing/result")
+        default="./result")
 parser.add_argument("--save_interval", type=int,
         default=10000)
-parser.add_argument("--log_dir", type=str, default="/local/crv/yiqing/run")
+parser.add_argument("--log_dir", type=str, default="./run")
 parser.add_argument("--train_thin", type=int, default=6)
 parser.add_argument("--loss_thin", type=int, default=5)
 parser.add_argument("--train_vis", type=int, default=1000) 
