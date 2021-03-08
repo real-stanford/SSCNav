@@ -26,9 +26,11 @@ PyTorch implementation for paper "SSCNav: Confidence-Aware Semantic Scene Comple
 ## Installation
 Recommend working on conda environment, Python 3.7+
 1. Download Matterport3d dataset following instruction [here](https://github.com/niessner/Matterport).
-2. Install Habitat environment following instruction [here](https://github.com/facebookresearch/habitat-lab).
-4. Clone and navigate to this repository.
-5. ```pip install -r requirements.txt```
+2. ```conda create -p /path/to/your/env python=3.7```
+3. Install [Pytorch](https://pytorch.org/).
+4. Install Habitat environment following instruction [here](https://github.com/facebookresearch/habitat-lab).
+5. Clone and navigate to this repository.
+6. ```pip install -r requirements.txt```
 
 ## Data Preparation
 
