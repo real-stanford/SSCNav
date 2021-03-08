@@ -140,13 +140,21 @@ usage: train_agent.py [-h] --title TITLE [--seed SEED] [--device DEVICE]
 
 ```
 #### Training a Navigation Model
+The command to train the provided Q model:
 ```
-CUDA_VISIBLE_DEVICES=? python train_agent.py --user_semantics False --cmplt True 
+CUDA_VISIBLE_DEVICES=? python train_agent.py --cmplt 
     --cmplt_pretrained /local/crv/yiqing/result/train_cmplt_resized/17_cd.pth
-    --conf True --conf_pretrained /local/crv/yiqing/result/train_conf_4/14_fd.pth
-                
+    --conf --conf_pretrained /local/crv/yiqing/result/train_conf_4/14_fd.pth               
 ```
 #### Evaluating a Navigation Model
+The command to evaluate the provided Q model with groundtruth semantic segmentation:
+```
+CUDA_VISIBLE_DEVICES=? python test_agent.py --Q_pretrained /local/crv/yiqing/result/s_cu_chal_4/60000.pth --cmplt --cmplt_pretrained /local/crv/yiqing/result/train_cmplt_resized/17_cd.pth --conf --conf_pretrained /local/crv/yiqing/result/train_conf_4/14_fd.pth               
+```
+The command to evaluate the provided Q model with ACNet semantic segmentation output:
+```
+CUDA_VISIBLE_DEVICES=? python test_agent.py --user_semantics --seg_pretrained /local/crv/yiqing/result/train_seg/10.pth --Q_pretrained /local/crv/yiqing/result/s_cu_chal_4/60000.pth --cmplt --cmplt_pretrained /local/crv/yiqing/result/train_cmplt_resized_seg/16_cd.pth --conf --conf_pretrained /local/crv/yiqing/result/train_conf_seg_6/6_fd.pth               
+```
 
 ## BibTeX
 ```
