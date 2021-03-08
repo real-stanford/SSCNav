@@ -49,7 +49,6 @@ SceneCompletionData.zip
 Download our pretrained models [here](https://sscnav.cs.columbia.edu/download/pretrained.zip) (1.2G).
 Model | Description
 --- | --- 
-
 ```cmplt.pth``` | semantic scene completion model weight for groundtruth semantic segmentation
 ```conf.pth``` | confidence model weight for groundtruth semantic segmentation
 ```cmplt_seg.pth``` | semantic scene completion model weight 
