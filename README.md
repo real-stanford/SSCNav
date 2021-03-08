@@ -46,8 +46,13 @@ SceneCompletionData.zip
     |-- test - testing data for ACNet semantic segmentation output
 ```
 ## Pretrained Models
-Download our pretrained models [here](https://sscnav.cs.columbia.edu/download/pretrained.zip) (1.2G) :
-* 
+Download our pretrained models [here](https://sscnav.cs.columbia.edu/download/pretrained.zip) (1.2G).
+Model | Description
+--- | --- 
+
+```cmplt.pth``` | semantic scene completion model weight for groundtruth semantic segmentation
+```conf.pth``` | confidence model weight for groundtruth semantic segmentation
+```cmplt_seg.pth``` | semantic scene completion model weight 
 
 ## Training
 
