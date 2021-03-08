@@ -10,7 +10,7 @@ except:
     from .utils import generate_pc, color2local3d, repeat4, pc2local, pc2local_gpu, d3_41_colors_rgb
 import habitat
 import json
-from skmpe import mpe
+
 from tqdm import tqdm
 import skimage
 # a new memory, that stores a global map
