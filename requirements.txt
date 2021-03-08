@@ -6,4 +6,4 @@ pandas
 scipy
 matplotlib
 scikit-image
-scikit-mpe
+
