@@ -194,7 +194,7 @@ test_loader = DataLoader(test_data,\
 
 # prepare models
 
-cd = ResNet(Bottleneck, DeconvBottleneck, layer_infos, num_channels)
+cd = ResNet(Bottleneck, DeconvBottleneck, layer_infos, num_channels).to(device)
 if cd_path != "":
     cd.load_state_dict(torch.load(cd_path))
 cd = nn.DataParallel(cd)
