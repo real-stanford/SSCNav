@@ -39,7 +39,7 @@ def main():
     
     args.config_paths = './configs/agent_test.yaml'
 
-    args.save_dir = '/local/crv/yiqing/result/exps/'
+    args.save_dir = './result/exps/'
 
 
     save_dir = os.path.join(args.save_dir, args.title)
