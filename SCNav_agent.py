@@ -1088,7 +1088,7 @@ class SCNavAgent:
 
     # get agent's observation  
     def get_observations(self):
-        return self.env.sim._sensor_suite.get_observations(self.env.sim._sim.get_sensor_observations())
+        return self.env.sim._sensor_suite.get_observations(self.env.sim.get_sensor_observations())
     
     def get_trinsics(self):
         quaternion = self.env._sim.get_agent_state().sensor_states['depth'].rotation
