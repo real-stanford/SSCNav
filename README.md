@@ -89,7 +89,16 @@ CUDA_VISIBLE_DEVICES=? python train_conf.py train_conf_seg_6
 ```
 ### Navigation
 
-Navigation Experiments are controlled by argparse:
+Navigation Experiments are controlled by argparse.
+
+* title
+* config_paths: configuration file for Habitat, ./configs/agent_train.yaml for training and ./configs/agent_test.yaml for testing
+* user_semantics: True -> use ACNet segmentation, groundtruth otherwise
+* cmplt & cmplt_pretrained: if semantic completion model is used, must set former to be True and optionally assign initial weight for the model
+* conf & conf_pretrained: if confidence model is used, must set former to be True and optionally assign initial weight for the model
+* save_dir: place to store model and visualization
+* log_dir: place to store Tensorboard log
+* load_json: dir to the JSON file which stores the evaluation episodes
 ```
 usage: train_agent.py [-h] --title TITLE [--seed SEED] [--device DEVICE]
                       [--config_paths CONFIG_PATHS] [--flip FLIP]
