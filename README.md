@@ -51,7 +51,10 @@ Model | Description
 --- | --- 
 ```cmplt.pth``` | semantic scene completion model weight for groundtruth semantic segmentation
 ```conf.pth``` | confidence model weight for groundtruth semantic segmentation
-```cmplt_seg.pth``` | semantic scene completion model weight 
+```cmplt_seg.pth``` | semantic scene completion model weight for ACNet semantic segmentation output
+```conf_seg.pth``` | confidence model weight for ACNet semantic segmentation output
+```final_seg.pth``` | ACNet semantic segmentation model weight
+```final_Q.pth``` | SSCNav navigation model weight
 
 ## Training
 
