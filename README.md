@@ -60,8 +60,9 @@ Model | Description
 
 ### Semantic Scene Completion
 
-The experiment settings are controlled by file ```configs/config.json```.
+The experiment settings are controlled by file ```configs/config.json```. Check the JSON file for details.
 **Note:** data are provided in the form of list.
+For example:
 ```
 "root_dirs": ["../resized_buffer/data_gen_1", "../resized_buffer/data_gen_2", "../resized_buffer/data_gen_3"]    
 "test_dirs": ["../resized_buffer/test_data_gen_1", "../resized_buffer/test_data_gen_2", "../resized_buffer/test_data_gen_3"]
