@@ -60,6 +60,8 @@ Model | Description
 
 ### Semantic Scene Completion
 
+The experiment settings are controlled by file ```configs/config.json```.
+
 #### Training a Semantic Scene Completion Model
 The command to train the provided model for groundtruth semantic segmentation:
 ```
