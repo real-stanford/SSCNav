@@ -125,10 +125,11 @@ def main():
         save_dir = os.path.join(args.save_dir, args.title)
         if os.path.exists(save_dir):
             assert False, "Dir exists!"
-        os.mkdir(save_dir)
+        os.makedirs(save_dir)
         log_dir = os.path.join(args.log_dir, args.title)
         if os.path.exists(log_dir):
             assert False, "Dir exists!"
+        os.makedirs(log_dir)
     log_writer = SummaryWriter(log_dir = log_dir)
 
     random.seed(args.seed)
