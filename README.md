@@ -62,6 +62,13 @@ Model | Description
 
 The experiment settings are controlled by file ```configs/config.json```. Each experiment is assigned a unique key in the file. Check the JSON file for details.
 
+Most Important JSON keys:
+* **root_dirs:** determine which training dataset to use.
+* **test_dirs:** determine which dataset is used for evaluation.
+* **layer_infos:** configuration of model structure.
+* **cd_path:** pretrained weight for semantic scene completion model.
+
+
 **Note:** data are provided in the form of list.
 For example:
 ```
