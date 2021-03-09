@@ -72,20 +72,20 @@ For example:
 #### Training & Evaluating a Semantic Scene Completion Model
 The command to train the provided model for groundtruth semantic segmentation:
 ```
-CUDA_VISIBLE_DEVICES=? python train_cmplt.py train_cmplt_resized
+python train_cmplt.py train_cmplt_resized
 ```
 The command to train the provided model for ACNet semantic segmentation output:
 ```
-CUDA_VISIBLE_DEVICES=? python train_cmplt.py train_cmplt_resized_seg
+python train_cmplt.py train_cmplt_resized_seg
 ```
 #### Training & Evaluating a Confidence Model
 The command to train the provided model for groundtruth semantic segmentation:
 ```
-CUDA_VISIBLE_DEVICES=? python train_conf.py train_conf_4
+python train_conf.py train_conf_4
 ```
 The command to train the provided model for ACNet semantic segmentation output:
 ```
-CUDA_VISIBLE_DEVICES=? python train_conf.py train_conf_seg_6
+python train_conf.py train_conf_seg_6
 ```
 ### Navigation
 
@@ -142,18 +142,18 @@ usage: train_agent.py [-h] --title TITLE [--seed SEED] [--device DEVICE]
 #### Training a Navigation Model
 The command to train the provided Q model:
 ```
-CUDA_VISIBLE_DEVICES=? python train_agent.py --cmplt 
+python train_agent.py --cmplt 
     --cmplt_pretrained /local/crv/yiqing/result/train_cmplt_resized/17_cd.pth
     --conf --conf_pretrained /local/crv/yiqing/result/train_conf_4/14_fd.pth               
 ```
 #### Evaluating a Navigation Model
 The command to evaluate the provided Q model with groundtruth semantic segmentation:
 ```
-CUDA_VISIBLE_DEVICES=? python test_agent.py --Q_pretrained /local/crv/yiqing/result/s_cu_chal_4/60000.pth --cmplt --cmplt_pretrained /local/crv/yiqing/result/train_cmplt_resized/17_cd.pth --conf --conf_pretrained /local/crv/yiqing/result/train_conf_4/14_fd.pth               
+python test_agent.py --Q_pretrained /local/crv/yiqing/result/s_cu_chal_4/60000.pth --cmplt --cmplt_pretrained /local/crv/yiqing/result/train_cmplt_resized/17_cd.pth --conf --conf_pretrained /local/crv/yiqing/result/train_conf_4/14_fd.pth               
 ```
 The command to evaluate the provided Q model with ACNet semantic segmentation output:
 ```
-CUDA_VISIBLE_DEVICES=? python test_agent.py --user_semantics --seg_pretrained /local/crv/yiqing/result/train_seg/10.pth --Q_pretrained /local/crv/yiqing/result/s_cu_chal_4/60000.pth --cmplt --cmplt_pretrained /local/crv/yiqing/result/train_cmplt_resized_seg/16_cd.pth --conf --conf_pretrained /local/crv/yiqing/result/train_conf_seg_6/6_fd.pth               
+python test_agent.py --user_semantics --seg_pretrained /local/crv/yiqing/result/train_seg/10.pth --Q_pretrained /local/crv/yiqing/result/s_cu_chal_4/60000.pth --cmplt --cmplt_pretrained /local/crv/yiqing/result/train_cmplt_resized_seg/16_cd.pth --conf --conf_pretrained /local/crv/yiqing/result/train_conf_seg_6/6_fd.pth               
 ```
 
 ## BibTeX
